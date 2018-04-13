@@ -1,5 +1,7 @@
 package com.example.charles.olympus;
 
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.media.session.MediaSessionCompat;
@@ -41,6 +43,20 @@ public class VideoActivity extends AppCompatActivity {
                 video.pause();
             }
         });
+
+        Log.d("COMPLETED VIDEO", "OLYMPUS VIDEO THATS TOO LONG TO WATCH & TEST");
+        video.stopPlayback();
+        finish();
+        /*
+        video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                Log.d("COMPLETED VIDEO", "OLYMPUS VIDEO THATS TOO LONG TO WATCH & TEST");
+                video.stopPlayback();
+                finish();
+            }
+        });
+        */
         //final MediaPlayer mediaPlayer;
         /**try {
             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.videoplayback);

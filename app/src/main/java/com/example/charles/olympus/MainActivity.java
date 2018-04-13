@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } catch (IOException e) {
                 Log.d(TAG, "Error accessing file: " + e.getMessage());
             }
+            mCamera.startPreview();
         }
     };
     private boolean capturing = false;
@@ -174,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!capturing) {
             capturing = true;
             mCamera.takePicture(null, null, mPicture);
+
         }
     }
 
@@ -248,6 +250,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //Trigger Video Activity
                 Intent i = new Intent(this, VideoActivity.class);
                 startActivity(i);
+                Intent x = new Intent(this, MainActivity.class);
+                startActivity(x);
+                //finish();
+                //Log.d("FINISH VIDEO ACTIVITY", modelNo);
             }
             else {
                 Toast toast1 = Toast.makeText(this, "Invalid Model Number.", Toast.LENGTH_LONG);
