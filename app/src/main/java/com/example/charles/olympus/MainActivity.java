@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     };
+    private boolean capturing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onClick(View v) {
                         // get an image from the camera
-                        mCamera.takePicture(null, null, mPicture);
+                        safePicture();
                     }
                 }
         );
@@ -169,6 +170,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void safePicture() {
+        if (!capturing) {
+            capturing = true;
+            mCamera.takePicture(null, null, mPicture);
+        }
+    }
+
     public void onResult(final AIResponse response) {
         Result result = response.getResult();
 
@@ -183,6 +191,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d("DialogFlow", "Query:" + result.getResolvedQuery() +
                 "\nAction: " + result.getAction() +
                 "\nParameters: " + parameterString);
+        if (result.getResolvedQuery().equals("capture")) {
+            safePicture();
+        }
     }
     @Override
     public void onError(final AIError error) {
@@ -233,9 +244,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String[] sep = result.split("\n");
             String modelNo = sep[0];
             Log.d("model num", modelNo);
-            //Trigger Video Activity
-            Intent i = new Intent(this, VideoActivity.class);
-            startActivity(i);
+            if(modelNo.contains("GIF")) {
+                //Trigger Video Activity
+                Intent i = new Intent(this, VideoActivity.class);
+                startActivity(i);
+            }
+            else {
+                Toast toast1 = Toast.makeText(this, "Invalid Model Number.", Toast.LENGTH_LONG);
+                toast1.show();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
