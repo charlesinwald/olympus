@@ -44,10 +44,7 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
 
-        Log.d("COMPLETED VIDEO", "OLYMPUS VIDEO THATS TOO LONG TO WATCH & TEST");
-        video.stopPlayback();
-        finish();
-        /*
+
         video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
@@ -56,7 +53,7 @@ public class VideoActivity extends AppCompatActivity {
                 finish();
             }
         });
-        */
+
         //final MediaPlayer mediaPlayer;
         /**try {
             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.videoplayback);
