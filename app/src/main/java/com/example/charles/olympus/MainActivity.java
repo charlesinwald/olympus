@@ -80,7 +80,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } catch (IOException e) {
                 Log.d(TAG, "Error accessing file: " + e.getMessage());
             }
-            mCamera.startPreview();
+
+            //Log.d("STARTING PREVIEW", "AGAIN AGAIN");
+            //mCamera.startPreview();
+
         }
     };
     private boolean capturing = false;
@@ -97,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Create an instance of Camera
         mCamera = getCameraInstance();
-
+        mCamera.setDisplayOrientation(90);
         // Create our Preview view and set it as the content of our activity.
         mPreview = new CameraPreview(this, mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
@@ -249,15 +252,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(modelNo.contains("GIF")) {
                 //Trigger Video Activity
                 Intent i = new Intent(this, VideoActivity.class);
-                startActivity(i);
-                Intent x = new Intent(this, MainActivity.class);
-                startActivity(x);
+                startActivityForResult(i, 101);
+                //Trigger Main Activity
+
+                //Intent x = new Intent(this, MainActivity.class);
+                //startActivity(x);
                 //finish();
                 //Log.d("FINISH VIDEO ACTIVITY", modelNo);
             }
             else {
                 Toast toast1 = Toast.makeText(this, "Invalid Model Number.", Toast.LENGTH_LONG);
                 toast1.show();
+                Intent x = new Intent(this, MainActivity.class);
+                finish();
+                startActivity(x);
+                //mCamera.startPreview();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -270,6 +279,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void setText(String text) {
 //        TextView textView = findViewById(R.id.maintext);
 //        textView.setText(text);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == 101){
+            //Video successfully finished playing
+            Intent x = new Intent(this, MainActivity.class);
+            startActivity(x);
+        }
     }
 
     @Override
