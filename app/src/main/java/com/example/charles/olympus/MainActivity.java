@@ -247,13 +247,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             toast.show();
             Log.d("Result", result);
             String[] sep = result.split("\n");
-            String modelNo = sep[0];
+            String modelNo = sep[2];
             Log.d("model num", modelNo);
-            if(modelNo.contains("GIF")) {
+            if(result.contains("GIF")) {
                 //Trigger Video Activity
                 Intent i = new Intent(this, VideoActivity.class);
                 startActivityForResult(i, 101);
                 //Trigger Main Activity
+                Log.d("WTF","If GIF statement reached");
 
                 //Intent x = new Intent(this, MainActivity.class);
                 //startActivity(x);
